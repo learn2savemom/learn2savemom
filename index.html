@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>À Vista x Parcelado com Investimento</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+            /* =========================
+        RESET & BASE
+        ========================= */
+        * {
+        box-sizing: border-box;
+        }
+
+        body {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                    "Inter", system-ui, sans-serif;
+        background: radial-gradient(
+            1200px 600px at 20% 10%,
+            #1e3a8a33,
+            transparent 60%
+            ),
+            radial-gradient(
+            800px 400px at 80% 90%,
+            #22c55e22,
+            transparent 60%
+            ),
+            linear-gradient(135deg, #0b1220, #020617);
+        color: #f8fafc;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.8s ease-out;
+        }
+
+        /* =========================
+        CARD (GLASSMORPHISM)
+        ========================= */
+        .card {
+        width: 100%;
+        max-width: 520px;
+        padding: 28px;
+        border-radius: 20px;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.02)
+        );
+        backdrop-filter: blur(18px) saturate(160%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        box-shadow:
+            0 30px 60px rgba(0, 0, 0, 0.55),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        animation: slideUp 0.9s cubic-bezier(.2,.8,.2,1);
+        }
+
+        /* =========================
+        TITLE
+        ========================= */
+        h1 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        text-align: center;
+        margin-bottom: 22px;
+        background: linear-gradient(90deg, #f8fafc, #c7d2fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+
+        /* =========================
+        GRID
+        ========================= */
+        .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        }
+
+        /* =========================
+        LABELS
+        ========================= */
+        label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        opacity: 0.85;
+        letter-spacing: 0.02em;
+        }
+
+        /* =========================
+        INPUTS & SELECTS
+        ========================= */
+        input,
+        select {
+        width: 100%;
+        margin-top: 6px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(2, 6, 23, 0.75);
+        color: #f8fafc;
+        font-size: 0.9rem;
+        outline: none;
+        transition:
+            border-color 0.25s ease,
+            box-shadow 0.25s ease,
+            transform 0.2s ease;
+        }
+
+        input::placeholder {
+        color: #94a3b8;
+        }
+
+        input:focus,
+        select:focus {
+        border-color: rgba(99, 102, 241, 0.7);
+        box-shadow:
+            0 0 0 4px rgba(99, 102, 241, 0.25),
+            0 10px 25px rgba(0, 0, 0, 0.4);
+        transform: translateY(-1px);
+        }
+
+        /* =========================
+        BUTTON (APPLE STYLE)
+        ========================= */
+        button {
+        width: 100%;
+        margin-top: 20px;
+        padding: 14px;
+        border-radius: 16px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: #020617;
+        background: linear-gradient(
+            180deg,
+            #22c55e,
+            #16a34a
+        );
+        box-shadow:
+            0 15px 30px rgba(34, 197, 94, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        transition:
+            transform 0.2s cubic-bezier(.2,.8,.2,1),
+            box-shadow 0.2s ease,
+            filter 0.2s ease;
+        }
+
+        button:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 22px 45px rgba(34, 197, 94, 0.45);
+        filter: brightness(1.05);
+        }
+
+        button:active {
+        transform: translateY(0);
+        box-shadow:
+            0 10px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        /* =========================
+        RESULT BOX
+        ========================= */
+        .result {
+        margin-top: 22px;
+        padding: 18px;
+        border-radius: 16px;
+        background: rgba(2, 6, 23, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 10px 25px rgba(0, 0, 0, 0.4);
+        animation: fadeIn 0.6s ease;
+        }
+
+        /* =========================
+        HIGHLIGHTS
+        ========================= */
+        .highlight {
+        margin-top: 10px;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #22c55e;
+        }
+
+        .danger {
+        color: #ef4444;
+        }
+
+        /* =========================
+        ANIMATIONS
+        ========================= */
+        @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+        }
+
+        @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        }
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>À Vista x Parcelado Investindo</h1>
+
+    <div class="grid">
+      <div>
+        <label>Valor total parcelado (R$)</label>
+        <input id="totalParcelado" type="number" step="0.01" />
+      </div>
+      <div>
+        <label>Nº de parcelas</label>
+        <input id="nParcelas" type="number" />
+      </div>
+      <div>
+        <label>Valor à vista (R$)</label>
+        <input id="valorVista" type="number" step="0.01" />
+      </div>
+      <div>
+        <label>Taxa de rendimento (%)</label>
+        <input id="taxa" type="number" step="0.01" />
+      </div>
+    </div>
+
+    <label style="margin-top:12px; display:block">Tipo da taxa</label>
+    <select id="tipoTaxa">
+        <option value="anual">Anual</option>
+        <option value="mensal">Mensal</option>
+    </select>
+
+    <button class="button-55" onclick="calcular()">Calcular cenários</button>
+
+    <div id="resultado" class="result" style="display:none"></div>
+  </div>
+
+  <script>
+    function calcular() {
+      const totalParcelado = Number(document.getElementById('totalParcelado').value);
+      const n = Number(document.getElementById('nParcelas').value);
+      const vista = Number(document.getElementById('valorVista').value);
+      const taxa = Number(document.getElementById('taxa').value) / 100;
+      const tipo = document.getElementById('tipoTaxa').value;
+
+      if (!totalParcelado || !n || !vista || !taxa) return;
+
+      const taxaMensal = tipo === 'anual'
+        ? Math.pow(1 + taxa, 1/12) - 1
+        : taxa;
+
+      const parcela = totalParcelado / n;
+
+      // Cenário 1: compra à vista e investe a diferença
+      let investimento1 = totalParcelado - vista;
+      for (let i = 0; i < n; i++) {
+        investimento1 *= (1 + taxaMensal);
+      }
+      // Cenário 2: paga parcela e investe o restante
+      let investimento2 = totalParcelado;
+      for (let i = 0; i < n; i++) {
+        investimento2 -= parcela;
+        investimento2 *= (1 + taxaMensal);
+        console.log(investimento2, i)
+      }
+
+      const diff = investimento2 - investimento1;
+
+      document.getElementById('resultado').style.display = 'block';
+      document.getElementById('resultado').innerHTML = `
+        <div>📌 <b>Cenário 1 – À vista + investimento único</b><br>
+        Valor final investido: R$ ${investimento1.toFixed(2)}</div><br>
+
+        <div>📌 <b>Cenário 2 – Parcelado + investimento recorrente</b><br>
+        Valor final investido: R$ ${investimento2.toFixed(2)}</div><br>
+
+        <div class="highlight ${diff < 0 ? 'danger' : ''}">
+          Diferença entre os cenários: R$ ${diff.toFixed(2)}
+        </div>
+
+        <div>
+          <b> Mais vantajoso: ${investimento1 > investimento2 ? 'À Vista' : 'Parcelado'} </b>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
